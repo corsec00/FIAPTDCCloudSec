@@ -291,54 +291,7 @@
                 "privateLinkServiceNetworkPolicies": "Enabled"
             }
         },
-        {
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2022-07-01",
-            "name": "[parameters('virtualNetworks_app_vnet_name')]",
-            "location": "westus",
-            "dependsOn": [
 
-            ],
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.2.0.0/16"
-                    ]
-                },
-                "dhcpOptions": {
-                    "dnsServers": [
-                        "1.1.1.1",
-                        "1.0.0.1"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "FrontEnd",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'FrontEnd')]",
-                        "properties": {
-                            "addressPrefix": "10.2.5.0/24",
-                            "delegations": [],
-                            "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Enabled"
-                        },
-                        "type": "Microsoft.Network/virtualNetworks/subnets"
-                    },
-                    {
-                        "name": "BackEnd",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'BackEnd')]",
-                        "properties": {
-                            "addressPrefix": "10.2.6.0/24",
-                            "delegations": [],
-                            "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Enabled"
-                        },
-                        "type": "Microsoft.Network/virtualNetworks/subnets"
-                    }
-                ],
-                "virtualNetworkPeerings": [],
-                "enableDdosProtection": false
-            }
-        }
     ],
     "outputs": {}
 }
