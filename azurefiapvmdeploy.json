@@ -3,31 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualMachines_VM1_name": {
-            "defaultValue": "VM1",
+            "defaultValue": "VM1lnxfiap",
             "type": "String"
         },
         "virtualMachines_VM2_name": {
-            "defaultValue": "VM2",
+            "defaultValue": "VM2lnxfiap",
             "type": "String"
         },
         "publicIPAddresses_VM1_ip_name": {
-            "defaultValue": "VM1-ip",
+            "defaultValue": "VM1lnxfiap-ip",
             "type": "String"
         },
         "publicIPAddresses_VM2_ip_name": {
-            "defaultValue": "VM2-ip",
+            "defaultValue": "VM2lnxfiap-ip",
             "type": "String"
         },
         "virtualNetworks_app_vnet_name": {
-            "defaultValue": "app-vnet",
+            "defaultValue": "vnet-leosantos001",
             "type": "String"
         },
         "networkInterfaces_VM1_nic_name": {
-            "defaultValue": "VM1-nic",
+            "defaultValue": "VM1lnxfiap-nic",
             "type": "String"
         },
         "networkInterfaces_VM2_nic_name": {
-            "defaultValue": "VM2-nic",
+            "defaultValue": "VM2lnxfiap-nic",
             "type": "String"
         }
     },
@@ -44,7 +44,7 @@
                 "tier": "Regional"
             },
             "properties": {
-                "ipAddress": "40.87.123.79",
+                //"ipAddress": "40.87.123.79",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -61,7 +61,7 @@
                 "tier": "Regional"
             },
             "properties": {
-                "ipAddress": "40.87.123.72",
+                //"ipAddress": "40.87.123.72",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -190,7 +190,7 @@
             "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM1_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'frontend')]"
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'FrontEnd')]"
             ],
             "kind": "Regular",
             "properties": {
@@ -201,13 +201,13 @@
                         "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
                         "properties": {
                             "provisioningState": "Succeeded",
-                            "privateIPAddress": "10.1.0.4",
+                            //"privateIPAddress": "10.1.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM1_ip_name'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'frontend')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'FrontEnd')]"
                             },
                             "primary": true,
                             "privateIPAddressVersion": "IPv4"
@@ -230,7 +230,7 @@
             "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM2_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'backend')]"
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'BackEnd')]"
             ],
             "kind": "Regular",
             "properties": {
@@ -241,13 +241,13 @@
                         "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
                         "properties": {
                             "provisioningState": "Succeeded",
-                            "privateIPAddress": "10.1.1.4",
+                            //"privateIPAddress": "10.1.1.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM2_ip_name'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'backend')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'BackEnd')]"
                             },
                             "primary": true,
                             "privateIPAddressVersion": "IPv4"
@@ -266,12 +266,12 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2022-07-01",
-            "name": "[concat(parameters('virtualNetworks_app_vnet_name'), '/backend')]",
+            "name": "[concat(parameters('virtualNetworks_app_vnet_name'), '/BackEnd')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_app_vnet_name'))]"
             ],
             "properties": {
-                "addressPrefix": "10.1.1.0/24",
+                "addressPrefix": "10.2.6.0/24",
                 "delegations": [],
                 "privateEndpointNetworkPolicies": "Disabled",
                 "privateLinkServiceNetworkPolicies": "Enabled"
@@ -280,12 +280,12 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2022-07-01",
-            "name": "[concat(parameters('virtualNetworks_app_vnet_name'), '/frontend')]",
+            "name": "[concat(parameters('virtualNetworks_app_vnet_name'), '/FrontEnd')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_app_vnet_name'))]"
             ],
             "properties": {
-                "addressPrefix": "10.1.0.0/24",
+                "addressPrefix": "10.1.5.0/24",
                 "delegations": [],
                 "privateEndpointNetworkPolicies": "Disabled",
                 "privateLinkServiceNetworkPolicies": "Enabled"
@@ -295,14 +295,14 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2022-07-01",
             "name": "[parameters('virtualNetworks_app_vnet_name')]",
-            "location": "eastus",
+            "location": "westus",
             "dependsOn": [
 
             ],
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "10.1.0.0/16"
+                        "10.2.0.0/16"
                     ]
                 },
                 "dhcpOptions": {
@@ -313,10 +313,10 @@
                 },
                 "subnets": [
                     {
-                        "name": "frontend",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'frontend')]",
+                        "name": "FrontEnd",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'FrontEnd')]",
                         "properties": {
-                            "addressPrefix": "10.1.0.0/24",
+                            "addressPrefix": "10.2.5.0/24",
                             "delegations": [],
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Enabled"
@@ -324,10 +324,10 @@
                         "type": "Microsoft.Network/virtualNetworks/subnets"
                     },
                     {
-                        "name": "backend",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'backend')]",
+                        "name": "BackEnd",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'BackEnd')]",
                         "properties": {
-                            "addressPrefix": "10.1.1.0/24",
+                            "addressPrefix": "10.2.6.0/24",
                             "delegations": [],
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Enabled"
