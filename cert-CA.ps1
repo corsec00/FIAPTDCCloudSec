@@ -24,9 +24,14 @@ $params = @{
     KeyLength = 2048
     HashAlgorithm = 'sha256'
     NotAfter = (Get-Date).AddMonths(24)
+    # Mudar o próximo parâmetro para os FQDNs necessários
+    # DnsName = 'vpngw000000.leoseg.cloud', 'vpngw000001.leoseg.cloud', 'vpngtw-leoss001.leosantos.seg.br'
     CertStoreLocation = 'Cert:\CurrentUser\My'
 }
 $certROOT = New-SelfSignedCertificate @params
+# $certROOT = New-SelfSignedCertificate -Type 'Custom' -Subject $RootCA -KeySpec 'Signature' -KeyExportPolicy 'Exportable' -KeyUsage 'CertSign' -KeyUsageProperty 'Sign' -KeyLength 2048 -HashAlgorithm 'sha256' -NotAfter (Get-Date).AddMonths(24) -DnsName 'vpngw000000.leoseg.cloud', 'vpngw000001.leoseg.cloud', 'vpngtw-leoss001.leosantos.seg.br' -CertStoreLocation 'Cert:\CurrentUser\My'
+
+
 $certROOT
 
 # Exportando as configurações do ROOT CA
