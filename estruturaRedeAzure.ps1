@@ -114,7 +114,7 @@ if ($input -eq "S") {
     # Obtendo o ID das VNets
         $vnet1Id=(az network vnet show --resource-group $RG --name $VNet1 --query id --output tsv)
         $vnet2Id=(az network vnet show --resource-group $RG --name $VNet2 --query id --output tsv)
-        $vnet3Id=(az network vnet show --resource-group $RG --name $VNet4 --query id --output tsv)
+        $vnet3Id=(az network vnet show --resource-group $RG --name $VNet3 --query id --output tsv)
 
         # Criando Peering de 01 para 03
         az network vnet peering create --name VNet01ToVNet03 --resource-group $RG --vnet-name $VNet1 --remote-vnet $vnet3Id --allow-vnet-access
