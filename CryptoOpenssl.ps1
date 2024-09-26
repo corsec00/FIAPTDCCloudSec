@@ -36,3 +36,6 @@ openssl pkey -in PubRSA_A.pem -pubin –text
 openssl rsautl -encrypt -inkey PubRSA_A.pem -pubin -in mesg.txt -out mesg_RSA-Pub.txt
 openssl rsautl -decrypt -inkey PrivRSA_A.key -in mesg_RSA-Pub.txt > texto_RSA.txt
 
+################# Hash #################
+openssl dgst -sha256 .\mesg.txt
+Get-FileHash .\mesg.txt -Algorithm SHA256
