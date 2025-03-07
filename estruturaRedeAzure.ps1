@@ -3,6 +3,7 @@
 ### Data: 2 de Outubro de 2023
 ### Última Revisão: 6 de Março de 2025
 ### Exercício: 02-Gerenciamento de IP - FIAP 2TDCR-2025
+### O script deve ser repetido até as 3 VNets estarem criadas (tente manter uma lógica para o valor $Sufix (linha 23). Corrija as linhas 134 à 136 para refletir os valore informados durante a execução. 
 ### Execute o seguinte comando no Azure CLI:
 ### pwsh -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/corsec00/FIAPTDCCloudSec/main/estruturaRedeAzure.ps1' -OutFile 'estruturaRedeAzure.ps1'; ./estruturaRedeAzure.ps1"
 #####################################################
@@ -19,7 +20,7 @@ az login
 # Cria estrutura de acesso baseado na localidade	
 $Loc = Read-Host "Digite o nome da região onde os recursos serão criados (escolha entre northcentralus, westus, westcentralus e northeurope)"  
 $RegionGroup = Read-Host "Digite a abreviação para a região onde os recursos serão criados (escolha de acordo com a resposta anterior: ncu, wus, wcu ou neu)"
-$Sufix = Read-Host "Digite sufixo dos recursos que serão criados (ex: FIAPLins001 ou leoss001 ou o nome que vc achar necessario)"
+$Sufix = Read-Host "Digite sufixo dos recursos que serão criados (ex: FIAPLins001 ou VNetAluno001 ou o nome que vc achar necessario)"
 
 # $Sufix = 'leoss001'
 $RG = 'RG-PrincipalFIAPLins'
