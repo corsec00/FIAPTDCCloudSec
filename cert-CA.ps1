@@ -53,7 +53,7 @@ $params = @{
      '2.5.29.37={text}1.3.6.1.5.5.7.3.2')
 }
 New-SelfSignedCertificate @params
-certROOT
+
 Start-Sleep -Seconds 2
 
 # Export Certs to PFX 
